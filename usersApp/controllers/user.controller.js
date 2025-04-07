@@ -5,16 +5,20 @@ const { connection } = require('mongoose');
 const { use } = require('../routes/user.routes');
 const bcrypt = require('bcrypt')
 
+const logger = require('../logger/logger')
+
 exports.findAll = async(req, res) => {
   console.log("Foind all users from collection users");
 
   try {
     // const result = await User.find()
     const result = await userService.findAll();
-    res.status(200).json({status: true, data: result})
+    res.status(200).json({status: true, data: result});
+    logger.info("INFO, Success in reading all users");
   } catch (err) {
-    console.log("Problem in reading users", err)
-    res.status(400).json({status: false, data: err})
+    console.log("Problem in reading users", err);
+    logger.error("ERROR, Problem in reading all users", err);
+    res.status(400).json({status: false, data: err});
   }
 }
 
