@@ -1,7 +1,6 @@
-const { findAll } = require('../controllers/user.controller');
-const User = require('../models/user.model')
+const User = require('../models/user.model');
 
-function fundAll() {
+function findAll() {
   const result = User.find();
   return result;
 }

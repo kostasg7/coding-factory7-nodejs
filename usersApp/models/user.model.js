@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let addressSchema = new Schema({
-  area: {type: String},
-  road: {type: String}
-}, {_id: false})
+  area: { type: String },
+  road: { type:String }
+}, {_id: false});
 
 let phoneSchema = new Schema({
   type: {type: String},
@@ -21,40 +21,40 @@ let productsSchema = new Schema({
 
 let userSchema = new Schema({
   username: {
-    type: String, 
+    type: String,
     required: [true, "Username is required field"],
     max: 20,
     unique: true,
     trim: true,
     lowercase: true
   },
-  password: {
-    type: String,
-    required: [true, "Password is required field"],
-    max: 20,
+  password: { 
+    type: String, 
+    required: [true, 'Password is required field'],
+    max:20
   },
   name: {
     type: String,
-    required: [true, "Name is required field"],
+    required: [true, 'Name is required field'],
     max: 20
   },
   surname: {
     type: String,
-    required: [true, 'Surname is required field'],
+    required: [ true, 'Surname is required field'],
     max: 20
   },
   email: {
     type: String,
-    required: [true, 'Email is required field'],
+    required: [ true, 'Email is required field'],
     max: 20,
-    unique: true,
+    unique:true,
     trim: true,
     lowercase: true
   },
   address: addressSchema,
-  phone: {type: [phoneSchema], null: true},
-  products: { type: [productsSchema], null: true},
-  roles: {type: [String], nulll: true}
+  phone: { type: [phoneSchema], null: true},
+  products: { type : [productsSchema], null: true},
+  roles: {type:[String], null: true}
 },
 {
   collection: 'users',

@@ -73,40 +73,40 @@ exports.options = {
           }
         }
       },
-      "post": {
-        "tags":["Users"],
+      "post":{
+        "tags": ["Users"],
         "description": "Data of users that we want to create",
-        "requestBody": {
-          "description": "Json with user data",
+        "requestBody":{
+          "description": "JSON with user data",
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {"type": "string"},
-                  "password": {"type": "string"},
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "username": {"type":"string"},
+                  "password": {"type":"string"},
                   "name": {"type": "string"},
-                  "surname": {"type": "string"},
-                  "email": {"type": "string"},
+                  "surname": {"type":"string"},
+                  "email": {"type":"string"},
                   "address": {
                     "type": "object",
                     "properties": {
-                      "area": {"type": "string"},
-                      "road": {"type": "string"}
+                      "area": {"type":"string"},
+                      "road": {"type":"string"}
                     }
                   },
                   "phone": {
-                    "type": "array",
+                    "type":"array",
                     "items": {
                       "type": "object",
-                      "properties": {
+                      "properties":{
                         "type": {"type": "string"},
                         "number": {"type": "number"}
                       }
                     }
                   }
                 },
-                "required": ["username", "password", "name", "surname", "email"]
+                "required":["username", "password", "name", "surname", "email"]
               }
             }
           }
@@ -116,7 +116,7 @@ exports.options = {
             "description": "JSON of new user"
           }
         }
-      }
+      }      
     },
     "/api/users/{username}":{
       "get": {
@@ -144,32 +144,32 @@ exports.options = {
           }
         }
       },
-      "patch": {
+      "patch":{
         "tags": ["Users"],
         "description": "Update user",
-        "parameters": [
+        "parameters":[
           {
-            "name": "username",
-            "in": "path",
-            "required": true,
+            "name":"username",
+            "in":"path",
+            "required":true,
             "description": "Username of user that can update",
-            "type": "string"
+            "type":"string"
           }
         ],
-        "requestBody": {
-          "description": "Data of user to update",
+        "requestBody":{
+          "description":"Data of user to update",
           "content": {
-            "application/json": {
+            "application/json":{
               "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {"type": "string"},
-                  "name": {"type": "string"},
-                  "surname": {"type": "string"},
-                  "email": {"type": "string"},
+                "type":"object",
+                "properties":{
+                  "username": {"type":"string"},
+                  "name": {"type":"string"},
+                  "surname": {"type":"string"},
+                  "email":{"type": "string"},
                   "address": {
-                    "type": "object",
-                    "properties": {
+                    "type":"object",
+                    "properties":{
                       "area": {"type": "string"},
                       "road": {"type": "string"}
                     }
@@ -180,9 +180,9 @@ exports.options = {
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Update user",
+        "responses":{
+          "200":{
+            "descripiton": "Update user"
           }
         }
       },
@@ -192,7 +192,7 @@ exports.options = {
         "parameters": [
           {
             "name": "username",
-            "in": "path",
+            "in":"path",
             "description": "User to delete",
             "type": "string",
             "required": true
@@ -200,7 +200,7 @@ exports.options = {
         ],
         "responses": {
           "200": {
-            "description": "Delete a user"
+            "description":"Delete a user"
           }
         }
       }
@@ -212,12 +212,12 @@ exports.options = {
         "requestBody": {
           "description": "User send username and password and for response we have jwt token",
           "content": {
-            "application/json": {
+            "application/json":{
               "schema": {
                 "type": "object",
                 "properties": {
-                  "username": {"type": "string"},
-                  "password": {"type": "string"}
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
                 },
                 "required": ["username", "password"]
               }
@@ -231,22 +231,22 @@ exports.options = {
         }
       }
     },
-    "/api/user-product/{username}": {
+    "/api/user-product/{username}":{
       "get": {
         "tags": ["Users and Products"],
         "parameters": [
           {
-            "name": "username",
-            "in": "path",
+            "name":"username",
+            "in":"path",
             "required": true,
             "description": "Find user and products",
             "type": "string"
           }
         ],
-        "responses": {
+        "responses":{
           "200": {
-            "description": "User and Products",
-            "schema": {
+            "description": "User ans Products",
+            "schema":{
               "$ref": "#/components/schemas/User"
             }
           }

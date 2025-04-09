@@ -1,24 +1,23 @@
-const { json } = require('express');
-const User = require('../models/user.model')
+const User = require('../models/user.model');
 const userService = require('../services/user.services');
-const { connection } = require('mongoose');
-const { use } = require('../routes/user.routes');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-const logger = require('../logger/logger')
+const logger = require('../logger/logger');
 
 exports.findAll = async(req, res) => {
-  console.log("Foind all users from collection users");
+  console.log("Find all users from collection users");
 
   try {
-    // const result = await User.find()
+    // const result = await User.find();
     const result = await userService.findAll();
     res.status(200).json({status: true, data: result});
-    logger.info("INFO, Success in reading all users");
+    logger.info("Success in reading all users");
+    logger.warn("Success in reading all users");
+    logger.error("Message with error");
   } catch (err) {
     console.log("Problem in reading users", err);
-    logger.error("ERROR, Problem in reading all users", err);
-    res.status(400).json({status: false, data: err});
+    logger.error("Problem in reading all users", err);
+    res.status(400).json({status:false, data: err});
   }
 }
 
@@ -29,13 +28,13 @@ exports.findOne = async(req, res) => {
   try {
     // const result = await User.findOne({username: username});
     const result = await userService.findOne(username);
-    if(result) {
-    res.status().json({status:true, data: result});
-  } else {
-    res.status(404).json({status: false, data: "User not exist"})
-  }
+    if (result) {
+      res.status(200).json({status:true, data: result});
+    } else {
+      res.status(404).json({status: false, data: "User not exist"})
+    }
   } catch (err) {
-    console.log("Problem in finding user", err)
+    console.log("Problem in findng user", err)
     res.status(400).json({status: false, data: err});
   }
 }
@@ -45,7 +44,7 @@ exports.create = async(req, res) => {
   let data = req.body;
   const SaltOrRounds = 10;
   const hashedPassword = await bcrypt.hash(data.password, SaltOrRounds)
-
+  
   const newUser = new User({
     username: data.username,
     password: hashedPassword,
@@ -58,12 +57,12 @@ exports.create = async(req, res) => {
     }
   });
 
-  try {
+  try{
     const result = await newUser.save();
     res.status(200).json({status: true, data: result});
   } catch (err) {
     console.log("Problem in creating user", err);
-    res.status(400).json({status: false, data:err})
+    res.status(400).json({status: false, data: err});
   }
 }
 
@@ -80,10 +79,10 @@ exports.update = async(req, res) => {
       area: req.body.address.area,
       road: req.body.address.road
     }
-  }
+  };
 
   try {
-    const result = await User.findOneAndUpdate({username:username}, updateUser, {new:true});
+    const result = await User.findOneAndUpdate({username: username}, updateUser, {new:true});
     res.status(200).json({status:true, data:result});
   } catch (err) {
     console.log("Problem in updating user", err);
@@ -91,19 +90,18 @@ exports.update = async(req, res) => {
   }
 }
 
-exports.deleteByUsername = async(req,res) => {
-  const username = req.params.username
-  console.log("Delete user with username", username);
+exports.deleteByUsername = async(req, res) => {
+    const username = req.params.username
+    console.log("Delete user with username", username);
 
-  try {
-    const result = await User.findOneAndDelete({username:username});
-    res.status(200).json({status:true, data: result});
-  } catch (err) {
-    console.log("Problem in deleting user", err);
-    res.status(400).json({status: false, data: err});
-  }
+    try {
+      const result = await User.findOneAndDelete({username:username});
+      res.status(200).json({status:true, data: result});
+    } catch (err) {
+      console.log("Problem in deleting user", err);
+      res.status(400).json({status: false, data: err});
+    }
 }
-
 // http://localhost:3000/api/users/test
 
 exports.deleteByEmail = async(req, res) => {
@@ -118,5 +116,5 @@ exports.deleteByEmail = async(req, res) => {
     console.log("Problem in deleting by email", err);
     res.status(400).json({status: false, data: err});
   }
-  } 
-  // http://localhost:3000/api/users/test/email/lakis@aueb.gr
+} 
+// http://localhost:3000/api/users/test/email/lakis@aueb.gr
