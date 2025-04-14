@@ -29,6 +29,7 @@
 //   ),
 //   transports: [new transports.Console()]
 // })
+// require('dotenv').config();
 
 // Third Example
 require('winston-daily-rotate-file');
